@@ -1,3 +1,5 @@
+module.exports = function(source){
+
 let stack = [];
 function str_to_bin(text,char){
     //------------------.과♡만 거르기---------------------//
@@ -53,8 +55,5 @@ function execute(code){
     });
     return stack.join('');
 }
-
-let op = "치노쨩♡..♡... 치노쨩♡♡..♡.♡ 치노쨩♡♡.♡♡.. 치노쨩♡♡.♡♡.. 치노쨩♡♡.♡♡♡♡ 치노쨩♡.♡♡.. 치노쨩♡♡♡.♡♡♡ 치노쨩♡♡.♡♡♡♡ 치노쨩♡♡♡..♡. 치노쨩♡♡.♡♡.. 치노쨩♡♡..♡..";
-
-//console.log(lexer(op));
-console.log(execute(op));
+	return execute(source);
+};
