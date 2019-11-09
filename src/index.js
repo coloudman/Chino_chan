@@ -4,13 +4,8 @@ let stack = [];
 function str_to_bin(text,char){
     //------------------.과♡만 거르기---------------------//
     let str = text.value.substring(char,text.length);
-    let tmp = str.split('');
-    tmp.forEach((value,index)=>{
-        if(value == '.'){
-            tmp[index] = 0;
-        }else{
-            tmp[index] = 1;
-        }
+    let tmp = str.split('').map(value => {
+        return value == '.' ? 0 : 1;
     });
 
     tmp = tmp.join('');
@@ -23,8 +18,8 @@ function lexer(code){
     .map(t=>{
         return {type: 'word', value: t}
     });
-    strs.forEach((value,index)=>{
-        let start_char_tmp = [strs[index].value.indexOf('.'),strs[index].value.indexOf('♡')];
+    strs.forEach((str)=>{
+        let start_char_tmp = [str.value.indexOf('.'),str.value.indexOf('♡')];
         let start_char = start_char_tmp[1];
         if(start_char_tmp[0] < start_char_tmp[1]) {
             start_char = start_char_tmp[0]
@@ -34,17 +29,17 @@ function lexer(code){
         }else if(start_char_tmp[0] == -1){
             start_char = start_char_tmp[1];
         }
-        strs[index].value = [strs[index].value.substring(0,start_char),str_to_bin(strs[index],start_char)];
+        str.value = [str.value.substring(0,start_char),str_to_bin(str,start_char)];
     });
     return strs;
 }
 
 function execute(code){
     let operators = lexer(code);
-    operators.forEach((value,index)=>{
-        switch(operators[index].value[0]){
+    operators.forEach((operator)=>{
+        switch(operator.value[0]){
             case "치노쨩":
-                let tmp = Number(operators[index].value[1]);
+                let tmp = Number(operator.value[1]);
                 let ansi = parseInt(tmp,2);
                 stack.push(String.fromCharCode(ansi));
 
